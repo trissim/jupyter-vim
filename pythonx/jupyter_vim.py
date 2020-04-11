@@ -224,7 +224,17 @@ def get_kernel_info(kernel_type):
 def is_cell_separator(line):
     """ Determine whether a given line is a cell separator """
     # TODO allow users to define their own cell separators
-    cell_sep = ('##', '#%%', '# %%', '# <codecell>')
+    cell_sep = ('##', '#%%', '# %%', '# <codecell>', '```python')
+
+    ### start custom separators
+    try:
+        custom = vim.eval('g:jupyter_vim_separator')
+    except:
+        pass
+    if not custom is None or not custom == "":
+        cell_sep = cell_sep + tuple([custom])
+    ### end custom separators
+
     return line.startswith(cell_sep)
 
 # from <http://serverfault.com/questions/71285/\
