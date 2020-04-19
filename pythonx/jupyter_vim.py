@@ -228,11 +228,9 @@ def is_cell_separator(line):
 
     ### start custom separators
     try:
-        custom = vim.eval('g:jupyter_vim_separator')
+        cell_sep = (vim.eval('g:jupyter_vim_separator'))
     except:
         pass
-    if not custom is None or not custom == "":
-        cell_sep = cell_sep + tuple([custom])
     ### end custom separators
 
     return line.startswith(cell_sep)
